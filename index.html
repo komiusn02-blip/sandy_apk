@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Panggilan Suara & Video</title>
+  <title>Panggilan Video - Seperti WhatsApp</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     * {
@@ -49,9 +49,10 @@
       padding: 40px;
       max-width: 420px;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Logo / Ikon Utama */
     .welcome-icon {
       width: 120px;
       height: 120px;
@@ -65,11 +66,7 @@
       animation: pulseGlow 2s ease-in-out infinite;
     }
 
-    .welcome-icon i {
-      font-size: 4rem;
-      color: white;
-      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
-    }
+    .welcome-icon i { font-size: 4rem; color: white; }
 
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.4), 0 0 120px rgba(124, 58, 237, 0.15); }
@@ -84,7 +81,6 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 8px;
-      letter-spacing: -0.5px;
     }
 
     .welcome-subtitle {
@@ -92,28 +88,17 @@
       font-size: 1.4rem;
       font-weight: 400;
       margin-bottom: 6px;
-      opacity: 0.9;
     }
 
-    .welcome-subtitle span {
-      color: #c4b5fd;
-      font-weight: 600;
-    }
+    .welcome-subtitle span { color: #c4b5fd; font-weight: 600; }
 
     .welcome-desc {
       color: #8b8b8b;
       font-size: 0.9rem;
       margin: 16px 0 32px;
       line-height: 1.6;
-      opacity: 0.8;
     }
 
-    .welcome-desc i {
-      color: #a78bfa;
-      margin: 0 4px;
-    }
-
-    /* Tombol Masuk - UNGU MENYALA */
     .btn-enter {
       background: linear-gradient(135deg, #7c3aed, #6d28d9);
       border: none;
@@ -124,11 +109,10 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.3), 0 0 60px rgba(124, 58, 237, 0.1);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
     }
@@ -136,10 +120,7 @@
     .btn-enter::before {
       content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
       background: linear-gradient(135deg, #a855f7, #7c3aed, #6d28d9, #a855f7);
       background-size: 300% 300%;
       border-radius: 62px;
@@ -153,31 +134,15 @@
       100% { background-position: 0% 50%; }
     }
 
-    .btn-enter:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 0 50px rgba(124, 58, 237, 0.5), 0 0 100px rgba(124, 58, 237, 0.2);
-    }
+    .btn-enter:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 50px rgba(124, 58, 237, 0.5); }
+    .btn-enter:active { transform: scale(0.97); }
+    .btn-enter:hover i { transform: translateX(5px); }
+    .btn-enter i { transition: transform 0.3s ease; }
 
-    .btn-enter:active {
-      transform: scale(0.97);
-    }
-
-    .btn-enter i {
-      font-size: 1.3rem;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-enter:hover i {
-      transform: translateX(5px);
-    }
-
-    /* Efek partikel ungu di background */
     .welcome-bg-particles {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       overflow: hidden;
       z-index: 0;
@@ -204,23 +169,23 @@
       100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
     }
 
-    .welcome-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ========== APLIKASI UTAMA ========== */
+    /* ========== APLIKASI UTAMA (Seperti WhatsApp) ========== */
     .app-container {
-      max-width: 500px;
       width: 100%;
-      background: #1a1a1a;
-      border-radius: 40px;
-      padding: 20px 18px 24px;
+      max-width: 500px;
+      height: 90vh;
+      max-height: 800px;
+      background: #111;
+      border-radius: 32px;
+      overflow: hidden;
+      position: relative;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
       border: 1px solid #2a2a2a;
       opacity: 0;
       transform: scale(0.95);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .app-container.visible {
@@ -228,353 +193,337 @@
       transform: scale(1);
     }
 
-    .app-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #eee;
-      margin-bottom: 20px;
-    }
-
-    .app-header h1 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .app-header h1 i {
-      color: #a855f7;
-    }
-
-    .unique-id-badge {
-      background: #252525;
-      padding: 6px 14px;
-      border-radius: 60px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #c4b5fd;
-      border: 1px solid #4a2a6a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Courier New', monospace;
-    }
-
-    .unique-id-badge i {
-      color: #a855f7;
-      font-size: 0.8rem;
-    }
-
-    .video-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .video-wrapper {
+    /* ===== LAYAR VIDEO UTAMA (Kamera B / Mitra) ===== */
+    .main-video-container {
+      flex: 1;
       position: relative;
-      background: #111;
-      border-radius: 24px;
+      background: #0a0a0a;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #2c2c2c;
-      min-height: 180px;
     }
 
-    .video-wrapper video {
+    #remoteVideo {
       width: 100%;
       height: 100%;
       object-fit: cover;
       background: #0a0a0a;
-      display: block;
     }
 
-    .video-placeholder {
+    .remote-placeholder {
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: #555;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      text-align: center;
       pointer-events: none;
     }
 
-    .video-placeholder i {
-      font-size: 2.5rem;
+    .remote-placeholder i {
+      font-size: 4rem;
       color: #333;
+      display: block;
+      margin-bottom: 12px;
     }
 
-    .video-wrapper .local-label,
-    .video-wrapper .remote-label {
+    .remote-placeholder span {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* ===== KAMERA A (Anda) - Picture-in-Picture di Sudut Bawah ===== */
+    .local-video-container {
       position: absolute;
-      bottom: 10px;
-      left: 14px;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      padding: 4px 14px;
-      border-radius: 30px;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #ddd;
-      border: 1px solid #444;
+      bottom: 100px;
+      right: 16px;
+      width: 120px;
+      height: 160px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+      z-index: 10;
+      background: #1a1a1a;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .local-video-container:hover {
+      border-color: rgba(124, 58, 237, 0.6);
+      transform: scale(1.02);
+    }
+
+    .local-video-container.dragging {
+      opacity: 0.8;
+      transform: scale(0.95);
+    }
+
+    #localVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #1a1a1a;
+    }
+
+    .local-placeholder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #555;
+      text-align: center;
       pointer-events: none;
-      letter-spacing: 0.3px;
+      font-size: 0.7rem;
     }
 
-    .video-wrapper .remote-label {
-      background: rgba(168, 85, 247, 0.12);
-      border-color: #7c3aed;
-      color: #c4b5fd;
+    .local-placeholder i {
+      font-size: 1.8rem;
+      color: #444;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .fullscreen-btn {
+    /* Label di video lokal */
+    .local-label {
       position: absolute;
-      top: 10px;
-      right: 12px;
+      bottom: 6px;
+      left: 8px;
       background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(6px);
-      border: 1px solid #444;
-      color: #f0f0f0;
-      width: 36px;
-      height: 36px;
-      border-radius: 36px;
-      font-size: 1rem;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.55rem;
+      color: #aaa;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ===== HEADER ===== */
+    .call-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .call-header .caller-info {
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: 0.2s;
-      z-index: 10;
+      gap: 10px;
+      color: white;
+      pointer-events: auto;
     }
 
-    .fullscreen-btn:hover {
-      background: #3a3a3a;
-      transform: scale(1.05);
+    .call-header .caller-info i {
+      color: #a855f7;
+      font-size: 1.2rem;
     }
 
-    .controls {
+    .call-header .caller-info span {
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .call-header .call-status {
+      color: #8bc34a;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      pointer-events: auto;
+    }
+
+    /* ===== KONTROL BAWAH ===== */
+    .call-controls {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
       display: flex;
       justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 4px;
+      gap: 18px;
+      padding: 0 20px;
+      z-index: 20;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      padding-top: 30px;
     }
 
     .ctrl-btn {
-      background: #2a2a2a;
+      width: 56px;
+      height: 56px;
+      border-radius: 56px;
       border: none;
-      color: #eee;
-      width: 58px;
-      height: 58px;
-      border-radius: 60px;
-      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: 0.15s;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      border: 1px solid #3d3d3d;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .ctrl-btn:active {
-      transform: scale(0.92);
-    }
+    .ctrl-btn:active { transform: scale(0.92); }
 
     .ctrl-btn.active {
-      background: #2a1a4a;
-      border-color: #7c3aed;
-      color: #c4b5fd;
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+      background: rgba(124, 58, 237, 0.4);
+      border-color: rgba(124, 58, 237, 0.3);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
     }
 
     .ctrl-btn.off {
-      background: #4a2a2a;
-      border-color: #8f3e3e;
-      color: #f0a0a0;
+      background: rgba(200, 50, 50, 0.3);
+      border-color: rgba(200, 50, 50, 0.2);
     }
 
     .ctrl-btn.end-call {
-      background: #b33a3a;
-      border-color: #d45353;
-      color: white;
+      background: #e74c3c;
+      border-color: #e74c3c;
       width: 64px;
+      box-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
     }
 
-    .ctrl-btn.end-call:hover {
-      background: #c44747;
-    }
+    .ctrl-btn.end-call:hover { background: #c0392b; }
 
     .ctrl-btn.speaker-on {
-      background: #1a2a6a;
+      background: rgba(124, 58, 237, 0.5);
       border-color: #7c3aed;
-      color: #aad4ff;
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
     }
 
+    /* ===== PANEL KONEKSI (di bawah) ===== */
     .connection-panel {
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 14px 16px;
+      border-top: 1px solid #2a2a2a;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-      background: #141414;
-      padding: 16px 14px;
-      border-radius: 28px;
-      border: 1px solid #282828;
+      gap: 8px;
+      z-index: 30;
+      position: relative;
     }
 
     .id-row {
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
     .id-row label {
-      color: #aaa;
-      font-weight: 500;
-      font-size: 0.75rem;
-      letter-spacing: 0.5px;
-      min-width: 60px;
+      color: #888;
+      font-size: 0.7rem;
+      font-weight: 600;
+      min-width: 50px;
     }
 
     .id-row input {
       flex: 1;
       background: #222;
-      border: 1px solid #3a3a3a;
-      padding: 10px 14px;
-      border-radius: 50px;
-      color: #f0f0f0;
-      font-size: 0.85rem;
+      border: 1px solid #333;
+      padding: 8px 14px;
+      border-radius: 30px;
+      color: #eee;
+      font-size: 0.75rem;
       outline: none;
-      min-width: 100px;
       font-family: 'Courier New', monospace;
+      min-width: 80px;
     }
 
     .id-row input:focus {
       border-color: #7c3aed;
-      box-shadow: 0 0 0 2px #2a1a4a;
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
     }
 
     .id-row .btn-connect {
       background: linear-gradient(135deg, #7c3aed, #6d28d9);
       border: none;
       color: white;
-      padding: 10px 20px;
-      border-radius: 60px;
+      padding: 8px 18px;
+      border-radius: 30px;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       cursor: pointer;
       transition: 0.2s;
       display: flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid #7c3aed;
       white-space: nowrap;
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
     }
 
-    .id-row .btn-connect:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
-    }
-
-    .id-row .btn-connect:disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
+    .id-row .btn-connect:hover { transform: scale(1.05); }
+    .id-row .btn-connect:disabled { opacity: 0.4; pointer-events: none; }
 
     .status-text {
-      color: #8f8f8f;
-      font-size: 0.7rem;
-      letter-spacing: 0.3px;
+      color: #666;
+      font-size: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-text i { font-size: 0.4rem; color: #7c3aed; }
+    .status-text .connected { color: #8bc34a; }
+
+    .my-id-display {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 2px;
-    }
-
-    .status-text i {
-      font-size: 0.5rem;
-      color: #a855f7;
-    }
-
-    .status-text .connected {
-      color: #a78bfa;
-    }
-
-    .my-id-display {
-      background: #1a0a2e;
-      padding: 8px 12px;
-      border-radius: 12px;
-      border: 1px solid #3a1a5a;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.75rem;
-      color: #c4b5fd;
-      flex-wrap: wrap;
-    }
-
-    .my-id-display i {
-      color: #a855f7;
+      font-size: 0.65rem;
+      color: #888;
     }
 
     .my-id-display .id-text {
       font-family: 'Courier New', monospace;
-      font-weight: 600;
       color: #a78bfa;
-      flex: 1;
-      word-break: break-all;
+      font-weight: 600;
     }
 
     .btn-copy-id {
-      background: #2a1a4a;
-      border: 1px solid #4a2a6a;
-      color: #c4b5fd;
-      padding: 4px 14px;
-      border-radius: 30px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #888;
+      padding: 2px 12px;
+      border-radius: 20px;
       cursor: pointer;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.6rem;
       transition: 0.2s;
       display: flex;
       align-items: center;
-      gap: 6px;
-      white-space: nowrap;
+      gap: 4px;
     }
 
     .btn-copy-id:hover {
-      background: #3a2a5a;
-      transform: scale(1.05);
-    }
-
-    .btn-copy-id.copied {
-      background: #1a2a3a;
-      border-color: #a78bfa;
+      border-color: #7c3aed;
       color: #a78bfa;
     }
 
+    .btn-copy-id.copied {
+      border-color: #8bc34a;
+      color: #8bc34a;
+    }
+
+    /* ===== TOAST ===== */
     .toast-notification {
       position: fixed;
-      bottom: 30px;
+      bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
-      background: #1a0a2e;
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(20px);
       color: #eee;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-size: 0.85rem;
-      border: 1px solid #4a2a6a;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.1);
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      border: 1px solid #333;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -584,34 +533,60 @@
       gap: 10px;
     }
 
-    .toast-notification.show {
-      opacity: 1;
-    }
+    .toast-notification.show { opacity: 1; }
+    .toast-notification i { color: #a855f7; }
 
-    .toast-notification i {
-      color: #a855f7;
-    }
-
-    /* Nama user di header welcome */
-    .user-name-highlight {
-      color: #c4b5fd;
-      font-weight: 700;
-      text-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
-    }
-
+    /* ===== RESPONSIF ===== */
     @media (max-width: 480px) {
-      .app-container { padding: 12px; border-radius: 28px; }
-      .ctrl-btn { width: 50px; height: 50px; font-size: 1.3rem; }
-      .id-row input { font-size: 0.75rem; padding: 8px 12px; }
-      .app-header h1 { font-size: 1.1rem; }
-      .unique-id-badge { font-size: 0.6rem; padding: 4px 10px; }
-      .my-id-display { font-size: 0.65rem; }
-      .btn-copy-id { font-size: 0.6rem; padding: 3px 10px; }
+      .app-container {
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+      }
+
+      .local-video-container {
+        width: 90px;
+        height: 120px;
+        bottom: 90px;
+        right: 10px;
+        border-radius: 12px;
+      }
+
+      .ctrl-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+      }
+
+      .ctrl-btn.end-call { width: 56px; }
+
+      .call-controls { gap: 12px; bottom: 20px; }
+
       .welcome-title { font-size: 2rem; }
       .welcome-subtitle { font-size: 1.1rem; }
       .welcome-icon { width: 90px; height: 90px; border-radius: 30px; }
       .welcome-icon i { font-size: 3rem; }
       .btn-enter { padding: 14px 40px; font-size: 1rem; }
+
+      .connection-panel { padding: 10px 12px; }
+      .id-row input { font-size: 0.65rem; padding: 6px 10px; }
+    }
+
+    @media (max-width: 380px) {
+      .local-video-container {
+        width: 70px;
+        height: 95px;
+        bottom: 80px;
+        right: 8px;
+      }
+      .ctrl-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+      }
+      .ctrl-btn.end-call { width: 48px; }
+      .call-controls { gap: 8px; }
     }
   </style>
 </head>
@@ -626,74 +601,62 @@
       <div class="particle"></div>
     </div>
     <div class="welcome-content">
-      <div class="welcome-icon">
-        <i class="fas fa-phone-alt"></i>
-      </div>
+      <div class="welcome-icon"><i class="fas fa-phone-alt"></i></div>
       <h1 class="welcome-title">Selamat Datang</h1>
-      <p class="welcome-subtitle">
-        <i class="fas fa-user-astronaut"></i> 
-        <span id="userNameDisplay">Sandy</span>
-      </p>
-      <p class="welcome-desc">
-        <i class="fas fa-video"></i> Panggilan suara & video berkualitas tinggi<br>
-        <i class="fas fa-lock"></i> Koneksi aman dengan ID unik
-      </p>
-      <button class="btn-enter" id="enterBtn">
-        <i class="fas fa-sign-in-alt"></i> Masuk
-      </button>
+      <p class="welcome-subtitle"><i class="fas fa-user-astronaut"></i> <span id="userNameDisplay">Sandy</span></p>
+      <p class="welcome-desc"><i class="fas fa-video"></i> Panggilan video berkualitas tinggi<br><i class="fas fa-lock"></i> Koneksi aman dengan ID unik</p>
+      <button class="btn-enter" id="enterBtn"><i class="fas fa-sign-in-alt"></i> Masuk</button>
     </div>
   </div>
 
   <!-- ========== APLIKASI UTAMA ========== -->
   <div class="app-container" id="appContainer">
-    <div class="app-header">
-      <h1><i class="fas fa-phone-alt"></i> Panggilan</h1>
-      <div class="unique-id-badge">
-        <i class="fas fa-fingerprint"></i>
-        <span id="localIdDisplay">---</span>
+    <!-- Main Video (Kamera B / Mitra) -->
+    <div class="main-video-container" id="mainVideoContainer">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <div class="remote-placeholder" id="remotePlaceholder">
+        <i class="fas fa-user-friends"></i>
+        <span>Menunggu mitra terhubung...</span>
       </div>
-    </div>
 
-    <div class="video-grid">
-      <div class="video-wrapper" id="localVideoWrapper">
+      <!-- Header Call -->
+      <div class="call-header">
+        <div class="caller-info">
+          <i class="fas fa-phone-alt"></i>
+          <span>Panggilan Video</span>
+        </div>
+        <div class="call-status" id="callStatus">⏳ Menghubungi...</div>
+      </div>
+
+      <!-- Local Video (Kamera A / Anda) - Picture-in-Picture -->
+      <div class="local-video-container" id="localVideoContainer">
         <video id="localVideo" autoplay muted playsinline></video>
-        <div class="video-placeholder" id="localPlaceholder">
+        <div class="local-placeholder" id="localPlaceholder">
           <i class="fas fa-video"></i>
-          <span>Kamera menyala...</span>
+          <span>Kamera</span>
         </div>
-        <span class="local-label"><i class="fas fa-user-circle"></i> Anda</span>
-        <button class="fullscreen-btn" id="fullscreenBtn" title="Layar penuh">
-          <i class="fas fa-expand"></i>
-        </button>
+        <span class="local-label">Anda</span>
       </div>
-      <div class="video-wrapper" id="remoteVideoWrapper">
-        <video id="remoteVideo" autoplay playsinline></video>
-        <div class="video-placeholder" id="remotePlaceholder">
-          <i class="fas fa-user-friends"></i>
-          <span>Menunggu mitra</span>
-        </div>
-        <span class="remote-label"><i class="fas fa-user-friends"></i> Mitra</span>
+
+      <!-- Controls -->
+      <div class="call-controls">
+        <button class="ctrl-btn active" id="micBtn" title="Mute/Unmute"><i class="fas fa-microphone"></i></button>
+        <button class="ctrl-btn" id="speakerBtn" title="Speaker/Earpiece"><i class="fas fa-volume-up"></i></button>
+        <button class="ctrl-btn active" id="videoBtn" title="Matikan/Nyalakan kamera"><i class="fas fa-video"></i></button>
+        <button class="ctrl-btn end-call" id="endCallBtn" title="Akhiri panggilan"><i class="fas fa-phone-slash"></i></button>
       </div>
     </div>
 
-    <div class="controls">
-      <button class="ctrl-btn active" id="micBtn" title="Mute/Unmute mikrofon"><i class="fas fa-microphone"></i></button>
-      <button class="ctrl-btn" id="speakerBtn" title="Speaker/Earpiece"><i class="fas fa-volume-up"></i></button>
-      <button class="ctrl-btn active" id="videoBtn" title="Matikan/Nyalakan kamera"><i class="fas fa-video"></i></button>
-      <button class="ctrl-btn end-call" id="endCallBtn" title="Akhiri panggilan"><i class="fas fa-phone-slash"></i></button>
-    </div>
-
+    <!-- Connection Panel -->
     <div class="connection-panel">
       <div class="my-id-display">
         <i class="fas fa-id-card"></i>
         <span>ID Anda:</span>
         <span class="id-text" id="myIdDisplay">memuat...</span>
-        <button class="btn-copy-id" id="copyIdBtn">
-          <i class="fas fa-copy"></i> Salin ID
-        </button>
+        <button class="btn-copy-id" id="copyIdBtn"><i class="fas fa-copy"></i> Salin</button>
       </div>
       <div class="id-row">
-        <label><i class="fas fa-link"></i> ID Mitra</label>
+        <label><i class="fas fa-link"></i></label>
         <input type="text" id="remoteIdInput" placeholder="Masukkan ID mitra" />
         <button class="btn-connect" id="connectBtn"><i class="fas fa-phone"></i> Hubung</button>
       </div>
@@ -703,7 +666,7 @@
     </div>
   </div>
 
-  <!-- Toast notifikasi -->
+  <!-- Toast -->
   <div class="toast-notification" id="toastNotification">
     <i class="fas fa-check-circle"></i>
     <span id="toastMessage">ID disalin!</span>
@@ -719,22 +682,22 @@
 
       const localVideo = document.getElementById('localVideo');
       const remoteVideo = document.getElementById('remoteVideo');
-      const localIdSpan = document.getElementById('localIdDisplay');
+      const localPlaceholder = document.getElementById('localPlaceholder');
+      const remotePlaceholder = document.getElementById('remotePlaceholder');
       const myIdDisplay = document.getElementById('myIdDisplay');
       const remoteIdInput = document.getElementById('remoteIdInput');
       const connectBtn = document.getElementById('connectBtn');
       const statusText = document.querySelector('#connectionStatus span');
       const statusIcon = document.querySelector('#connectionStatus i');
+      const callStatus = document.getElementById('callStatus');
       const micBtn = document.getElementById('micBtn');
       const speakerBtn = document.getElementById('speakerBtn');
       const videoBtn = document.getElementById('videoBtn');
       const endCallBtn = document.getElementById('endCallBtn');
-      const fullscreenBtn = document.getElementById('fullscreenBtn');
-      const localPlaceholder = document.getElementById('localPlaceholder');
-      const remotePlaceholder = document.getElementById('remotePlaceholder');
       const copyIdBtn = document.getElementById('copyIdBtn');
       const toastNotification = document.getElementById('toastNotification');
       const toastMessage = document.getElementById('toastMessage');
+      const localVideoContainer = document.getElementById('localVideoContainer');
 
       // ========== STATE ==========
       let localStream = null;
@@ -745,68 +708,40 @@
       let isVideoOff = false;
       let isSpeakerOn = false;
       let toastTimeout = null;
-      let isAppReady = false;
+      let isInCall = false;
 
       // ========== NAMA USER ==========
       const userName = 'Sandy';
       userNameDisplay.textContent = userName;
 
-      // ========== TOMBOL MASUK ==========
-      enterBtn.addEventListener('click', () => {
-        welcomeScreen.classList.add('hidden');
-        appContainer.classList.add('visible');
-        // Inisialisasi aplikasi setelah transisi
-        setTimeout(() => {
-          if (!isAppReady) {
-            initCall();
-            isAppReady = true;
-          }
-        }, 300);
-      });
-
       // ========== GENERATE ID UNIK ==========
       const myId = 'ID-' + Math.random().toString(36).substring(2, 8).toUpperCase() + 
                    Date.now().toString(36).slice(-4).toUpperCase();
-      
-      localIdSpan.textContent = myId;
       myIdDisplay.textContent = myId;
 
-      // ========== FUNGSI TOAST ==========
+      // ========== TOAST ==========
       function showToast(message, isSuccess = true) {
         toastMessage.textContent = message;
         toastNotification.className = 'toast-notification show';
-        if (isSuccess) {
-          toastNotification.querySelector('i').className = 'fas fa-check-circle';
-          toastNotification.querySelector('i').style.color = '#a855f7';
-        } else {
-          toastNotification.querySelector('i').className = 'fas fa-exclamation-circle';
-          toastNotification.querySelector('i').style.color = '#ff6b6b';
-        }
-        
+        toastNotification.querySelector('i').style.color = isSuccess ? '#a855f7' : '#ff6b6b';
         if (toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-          toastNotification.classList.remove('show');
-        }, 2500);
+        toastTimeout = setTimeout(() => toastNotification.classList.remove('show'), 2500);
       }
 
-      // ========== FUNGSI SALIN ID ==========
+      // ========== COPY ID ==========
       function copyMyId() {
-        const idToCopy = myId;
-        
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(idToCopy).then(() => {
-            showToast('✅ ID berhasil disalin!');
+          navigator.clipboard.writeText(myId).then(() => {
+            showToast('✅ ID disalin!');
             copyIdBtn.classList.add('copied');
             copyIdBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin';
             setTimeout(() => {
               copyIdBtn.classList.remove('copied');
-              copyIdBtn.innerHTML = '<i class="fas fa-copy"></i> Salin ID';
+              copyIdBtn.innerHTML = '<i class="fas fa-copy"></i> Salin';
             }, 2500);
-          }).catch(() => {
-            fallbackCopy(idToCopy);
-          });
+          }).catch(() => fallbackCopy(myId));
         } else {
-          fallbackCopy(idToCopy);
+          fallbackCopy(myId);
         }
       }
 
@@ -820,12 +755,12 @@
         textarea.select();
         try {
           document.execCommand('copy');
-          showToast('✅ ID berhasil disalin!');
+          showToast('✅ ID disalin!');
           copyIdBtn.classList.add('copied');
           copyIdBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin';
           setTimeout(() => {
             copyIdBtn.classList.remove('copied');
-            copyIdBtn.innerHTML = '<i class="fas fa-copy"></i> Salin ID';
+            copyIdBtn.innerHTML = '<i class="fas fa-copy"></i> Salin';
           }, 2500);
         } catch (err) {
           showToast('❌ Gagal menyalin', false);
@@ -835,22 +770,32 @@
 
       copyIdBtn.addEventListener('click', copyMyId);
 
+      // ========== TOMBOL MASUK ==========
+      enterBtn.addEventListener('click', () => {
+        welcomeScreen.classList.add('hidden');
+        appContainer.classList.add('visible');
+        setTimeout(() => {
+          if (!localStream) initCall();
+        }, 400);
+      });
+
       // ========== KONFIGURASI STUN ==========
       const rtcConfig = {
         iceServers: [
           { urls: 'stun:stun.l.google.com:19302' },
-          { urls: 'stun:stun1.l.google.com:19302' }
+          { urls: 'stun:stun1.l.google.com:19302' },
+          { urls: 'stun:stun2.l.google.com:19302' }
         ]
       };
 
       // ========== UPDATE STATUS ==========
       function setStatus(text, isConnectedStatus = false) {
         statusText.textContent = text;
-        if (isConnectedStatus) {
-          statusIcon.className = 'fas fa-circle connected';
-        } else {
-          statusIcon.className = 'fas fa-circle';
-        }
+        statusIcon.className = isConnectedStatus ? 'fas fa-circle connected' : 'fas fa-circle';
+      }
+
+      function setCallStatus(text) {
+        callStatus.textContent = text;
       }
 
       // ========== AMBIL MEDIA LOKAL ==========
@@ -858,22 +803,18 @@
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
-            video: { 
-              width: { ideal: 640 }, 
-              height: { ideal: 480 },
-              facingMode: 'user'
-            }
+            video: { width: { ideal: 320 }, height: { ideal: 240 }, facingMode: 'user' }
           });
           localStream = stream;
           localVideo.srcObject = stream;
           localPlaceholder.style.display = 'none';
           micBtn.classList.add('active');
           videoBtn.classList.add('active');
-          console.log('✅ Kamera dan mikrofon aktif');
+          console.log('✅ Kamera & mikrofon aktif');
           return stream;
         } catch (err) {
-          console.error('❌ Gagal akses kamera/mikrofon:', err);
-          localPlaceholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i><span style="color:#ff6b6b;">Izin ditolak</span>';
+          console.error('❌ Gagal akses media:', err);
+          localPlaceholder.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i>';
           showToast('❌ Izin kamera/mikrofon diperlukan!', false);
           throw err;
         }
@@ -888,9 +829,7 @@
         const pc = new RTCPeerConnection(rtcConfig);
 
         if (localStream) {
-          localStream.getTracks().forEach(track => {
-            pc.addTrack(track, localStream);
-          });
+          localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
         }
 
         pc.ontrack = (event) => {
@@ -899,39 +838,39 @@
             remoteVideo.srcObject = remoteStream;
             remotePlaceholder.style.display = 'none';
           }
-          event.streams[0].getTracks().forEach(track => {
-            remoteStream.addTrack(track);
-          });
+          event.streams[0].getTracks().forEach(track => remoteStream.addTrack(track));
         };
 
         pc.onicecandidate = (e) => {
-          if (e.candidate) {
-            console.log('ICE candidate:', e.candidate);
-          }
+          if (e.candidate) console.log('ICE candidate:', e.candidate);
         };
 
         pc.onconnectionstatechange = () => {
           console.log('Connection state:', pc.connectionState);
           if (pc.connectionState === 'connected') {
             isConnected = true;
+            isInCall = true;
             setStatus('✅ Terhubung', true);
-            connectBtn.disabled = false;
+            setCallStatus('📞 Sedang bicara');
             remotePlaceholder.style.display = 'none';
             showToast('✅ Panggilan terhubung!');
+            connectBtn.disabled = false;
           } else if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed') {
             isConnected = false;
+            isInCall = false;
             setStatus('❌ Koneksi terputus', false);
+            setCallStatus('📴 Putus');
             connectBtn.disabled = false;
-            if (peerConnection) {
-              peerConnection.close();
-              peerConnection = null;
-            }
             remotePlaceholder.style.display = 'flex';
+            if (peerConnection) { peerConnection.close(); peerConnection = null; }
           }
         };
 
         pc.oniceconnectionstatechange = () => {
           console.log('ICE state:', pc.iceConnectionState);
+          if (pc.iceConnectionState === 'checking') {
+            setCallStatus('⏳ Menghubungkan...');
+          }
         };
 
         peerConnection = pc;
@@ -944,6 +883,7 @@
           await getLocalMedia();
           createPeerConnection();
           setStatus('📱 Siap memanggil', false);
+          setCallStatus('📱 Siap');
           connectBtn.disabled = false;
           console.log('✅ Aplikasi siap, ID:', myId);
         } catch (e) {
@@ -956,18 +896,14 @@
         if (!peerConnection) createPeerConnection();
         if (!localStream) {
           await getLocalMedia();
-          localStream.getTracks().forEach(track => {
-            peerConnection.addTrack(track, localStream);
-          });
+          localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
         }
-
         try {
           const offer = await peerConnection.createOffer();
           await peerConnection.setLocalDescription(offer);
           return peerConnection.localDescription;
         } catch (e) {
-          console.error('❌ Gagal membuat offer:', e);
-          setStatus('❌ Gagal membuat offer', false);
+          console.error('❌ Gagal buat offer:', e);
           return null;
         }
       }
@@ -977,9 +913,7 @@
         if (!peerConnection) createPeerConnection();
         if (!localStream) {
           await getLocalMedia();
-          localStream.getTracks().forEach(track => {
-            peerConnection.addTrack(track, localStream);
-          });
+          localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
         }
         try {
           await peerConnection.setRemoteDescription(new RTCSessionDescription(offerSdp));
@@ -988,7 +922,6 @@
           return peerConnection.localDescription;
         } catch (e) {
           console.error('❌ Gagal handle offer:', e);
-          setStatus('❌ Gagal memproses panggilan', false);
           return null;
         }
       }
@@ -1005,15 +938,14 @@
           return true;
         } catch (e) {
           console.error('❌ Gagal set answer:', e);
-          setStatus('❌ Gagal set answer', false);
           return false;
         }
       }
 
       // ========== TOMBOL HUBUNG ==========
       connectBtn.addEventListener('click', async () => {
-        if (isConnected) {
-          showToast('⚠️ Sudah terhubung. Akhiri panggilan terlebih dahulu.', false);
+        if (isConnected || isInCall) {
+          showToast('⚠️ Sudah dalam panggilan', false);
           return;
         }
 
@@ -1031,8 +963,8 @@
           `📤 KIRIM OFFER KE MITRA\n\n` +
           `ID Mitra: ${targetId}\n` +
           `ID Anda: ${myId}\n\n` +
-          `Salin seluruh teks di bawah ini dan kirimkan ke mitra.\n` +
-          `Lalu tempelkan jawaban (answer) dari mitra di kotak berikutnya.\n\n` +
+          `Salin teks di bawah dan kirim ke mitra.\n` +
+          `Lalu tempelkan jawaban (answer) dari mitra.\n\n` +
           `--- OFFER ---\n${offerSdp}\n--- END OFFER ---`
         );
 
@@ -1046,7 +978,9 @@
           const ok = await handleAnswer(answerSdp);
           if (ok) {
             setStatus('✅ Panggilan aktif', true);
+            setCallStatus('📞 Sedang bicara');
             isConnected = true;
+            isInCall = true;
             remotePlaceholder.style.display = 'none';
             showToast('✅ Panggilan berhasil!');
           } else {
@@ -1062,8 +996,8 @@
 
       // ========== FUNGSI MENERIMA PANGGILAN ==========
       window.receiveCall = async function(offerSdpString) {
-        if (isConnected) {
-          showToast('⚠️ Sedang dalam panggilan.', false);
+        if (isConnected || isInCall) {
+          showToast('⚠️ Sedang dalam panggilan', false);
           return;
         }
 
@@ -1085,34 +1019,33 @@
         const answerSdp = JSON.stringify(answer);
         alert(
           `📥 KIRIM ANSWER KE MITRA\n\n` +
-          `Salin seluruh teks di bawah ini dan kirimkan ke mitra.\n\n` +
+          `Salin teks di bawah dan kirim ke mitra.\n\n` +
           `--- ANSWER ---\n${answerSdp}\n--- END ANSWER ---\n\n` +
-          `Setelah mitra menerima answer, koneksi akan terbentuk.`
+          `Setelah mitra menerima, koneksi akan terbentuk.`
         );
         setStatus('⏳ Menunggu koneksi...', false);
+        setCallStatus('⏳ Menunggu koneksi...');
         showToast('⏳ Menunggu koneksi...');
       };
 
       // ========== KONTROL: MIC ==========
       micBtn.addEventListener('click', () => {
         if (!localStream) return;
-        const audioTracks = localStream.getAudioTracks();
-        if (audioTracks.length === 0) return;
-        const track = audioTracks[0];
+        const track = localStream.getAudioTracks()[0];
+        if (!track) return;
         isMuted = !isMuted;
         track.enabled = !isMuted;
         micBtn.classList.toggle('off', isMuted);
         micBtn.innerHTML = isMuted ? '<i class="fas fa-microphone-slash"></i>' : '<i class="fas fa-microphone"></i>';
         micBtn.classList.toggle('active', !isMuted);
-        showToast(isMuted ? '🔇 Mikrofon dimatikan' : '🎤 Mikrofon diaktifkan');
+        showToast(isMuted ? '🔇 Mikrofon mati' : '🎤 Mikrofon aktif');
       });
 
       // ========== KONTROL: VIDEO ==========
       videoBtn.addEventListener('click', () => {
         if (!localStream) return;
-        const videoTracks = localStream.getVideoTracks();
-        if (videoTracks.length === 0) return;
-        const track = videoTracks[0];
+        const track = localStream.getVideoTracks()[0];
+        if (!track) return;
         isVideoOff = !isVideoOff;
         track.enabled = !isVideoOff;
         videoBtn.classList.toggle('off', isVideoOff);
@@ -1121,11 +1054,11 @@
         
         if (isVideoOff) {
           localPlaceholder.style.display = 'flex';
-          localPlaceholder.innerHTML = '<i class="fas fa-video-slash" style="color:#ff6b6b;"></i><span style="color:#ff6b6b;">Kamera mati</span>';
-          showToast('📷 Kamera dimatikan');
+          localPlaceholder.innerHTML = '<i class="fas fa-video-slash" style="color:#ff6b6b;"></i>';
+          showToast('📷 Kamera mati');
         } else {
           localPlaceholder.style.display = 'none';
-          showToast('📷 Kamera diaktifkan');
+          showToast('📷 Kamera aktif');
         }
       });
 
@@ -1134,9 +1067,7 @@
         isSpeakerOn = !isSpeakerOn;
         speakerBtn.classList.toggle('speaker-on', isSpeakerOn);
         speakerBtn.innerHTML = isSpeakerOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-off"></i>';
-        if (remoteVideo) {
-          remoteVideo.volume = isSpeakerOn ? 1.0 : 0.4;
-        }
+        if (remoteVideo) remoteVideo.volume = isSpeakerOn ? 1.0 : 0.4;
         showToast(isSpeakerOn ? '🔊 Speaker aktif' : '🔈 Earpiece aktif');
       });
 
@@ -1152,11 +1083,13 @@
           remoteStream = null;
           remoteVideo.srcObject = null;
           remotePlaceholder.style.display = 'flex';
-          remotePlaceholder.innerHTML = '<i class="fas fa-user-friends"></i><span>Menunggu mitra</span>';
+          remotePlaceholder.querySelector('span').textContent = 'Menunggu mitra terhubung...';
         }
 
         isConnected = false;
+        isInCall = false;
         setStatus('📴 Panggilan diakhiri', false);
+        setCallStatus('📴 Selesai');
         connectBtn.disabled = false;
         showToast('📴 Panggilan diakhiri');
 
@@ -1180,30 +1113,91 @@
           localStream = null;
           localVideo.srcObject = null;
           localPlaceholder.style.display = 'flex';
-          localPlaceholder.innerHTML = '<i class="fas fa-video"></i><span>Kamera menyala...</span>';
+          localPlaceholder.innerHTML = '<i class="fas fa-video"></i><span>Kamera</span>';
         }
 
-        initCall();
+        setTimeout(() => initCall(), 500);
       });
 
-      // ========== FULLSCREEN ==========
-      fullscreenBtn.addEventListener('click', () => {
-        const wrapper = document.getElementById('localVideoWrapper');
-        if (!document.fullscreenElement) {
-          wrapper.requestFullscreen?.() || wrapper.webkitRequestFullscreen?.() || wrapper.msRequestFullscreen?.();
-          showToast('⛶ Mode layar penuh');
-        } else {
-          document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.msExitFullscreen?.();
-          showToast('⛶ Keluar layar penuh');
+      // ========== DRAG LOCAL VIDEO (seperti WhatsApp) ==========
+      let isDragging = false;
+      let dragStartX, dragStartY;
+      let containerStartX, containerStartY;
+
+      localVideoContainer.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.local-label')) return;
+        isDragging = true;
+        const rect = localVideoContainer.getBoundingClientRect();
+        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        containerStartX = rect.left - containerRect.left;
+        containerStartY = rect.top - containerRect.top;
+        localVideoContainer.style.cursor = 'grabbing';
+        localVideoContainer.classList.add('dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
+        let x = e.clientX - containerRect.left - (localVideoContainer.offsetWidth / 2);
+        let y = e.clientY - containerRect.top - (localVideoContainer.offsetHeight / 2);
+        x = Math.max(10, Math.min(containerRect.width - localVideoContainer.offsetWidth - 10, x));
+        y = Math.max(10, Math.min(containerRect.height - localVideoContainer.offsetHeight - 60, y));
+        localVideoContainer.style.left = x + 'px';
+        localVideoContainer.style.right = 'auto';
+        localVideoContainer.style.bottom = 'auto';
+        localVideoContainer.style.top = y + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          localVideoContainer.style.cursor = 'pointer';
+          localVideoContainer.classList.remove('dragging');
         }
       });
 
-      // ========== PANDUAN DI CONSOLE ==========
+      // Touch support
+      localVideoContainer.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        const rect = localVideoContainer.getBoundingClientRect();
+        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
+        dragStartX = touch.clientX;
+        dragStartY = touch.clientY;
+        containerStartX = rect.left - containerRect.left;
+        containerStartY = rect.top - containerRect.top;
+        localVideoContainer.classList.add('dragging');
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('touchmove', (e) => {
+        if (!localVideoContainer.classList.contains('dragging')) return;
+        const touch = e.touches[0];
+        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
+        let x = touch.clientX - containerRect.left - (localVideoContainer.offsetWidth / 2);
+        let y = touch.clientY - containerRect.top - (localVideoContainer.offsetHeight / 2);
+        x = Math.max(10, Math.min(containerRect.width - localVideoContainer.offsetWidth - 10, x));
+        y = Math.max(10, Math.min(containerRect.height - localVideoContainer.offsetHeight - 60, y));
+        localVideoContainer.style.left = x + 'px';
+        localVideoContainer.style.right = 'auto';
+        localVideoContainer.style.bottom = 'auto';
+        localVideoContainer.style.top = y + 'px';
+      }, { passive: false });
+
+      document.addEventListener('touchend', () => {
+        localVideoContainer.classList.remove('dragging');
+      });
+
+      // ========== PANDUAN ==========
       console.log('═══════════════════════════════════');
-      console.log('📱 APLIKASI PANGGILAN SIAP');
+      console.log('📱 APLIKASI PANGGILAN VIDEO');
       console.log(`👤 User: ${userName}`);
       console.log(`🆔 ID UNIK ANDA: ${myId}`);
-      console.log('📋 Klik tombol "Salin ID" untuk menyalin');
+      console.log('═══════════════════════════════════');
+      console.log('📤 MEMANGGIL: Masukkan ID mitra → Klik Hubung');
+      console.log('📥 MENERIMA: Jalankan receiveCall("OFFER_SDP")');
       console.log('═══════════════════════════════════');
 
     })();
