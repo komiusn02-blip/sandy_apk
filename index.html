@@ -2,25 +2,28 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Panggilan Video - Seperti WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Video Call - Seperti WhatsApp</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
       background: #0a0a0a;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
       overflow: hidden;
+      position: relative;
+      height: 100vh;
+      height: 100dvh;
     }
 
     /* ========== HALAMAN SELAMAT DATANG ========== */
@@ -35,7 +38,8 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      padding: 20px;
     }
 
     .welcome-screen.hidden {
@@ -46,56 +50,54 @@
 
     .welcome-content {
       text-align: center;
-      padding: 40px;
-      max-width: 420px;
+      max-width: 380px;
       width: 100%;
       position: relative;
       z-index: 1;
     }
 
     .welcome-icon {
-      width: 120px;
-      height: 120px;
+      width: 100px;
+      height: 100px;
       background: linear-gradient(135deg, #7c3aed, #a855f7);
-      border-radius: 40px;
+      border-radius: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 30px;
-      box-shadow: 0 0 60px rgba(124, 58, 237, 0.4), 0 0 120px rgba(124, 58, 237, 0.15);
+      margin: 0 auto 24px;
+      box-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
       animation: pulseGlow 2s ease-in-out infinite;
     }
 
-    .welcome-icon i { font-size: 4rem; color: white; }
+    .welcome-icon i { font-size: 3.2rem; color: white; }
 
     @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.4), 0 0 120px rgba(124, 58, 237, 0.15); }
-      50% { box-shadow: 0 0 80px rgba(124, 58, 237, 0.6), 0 0 160px rgba(124, 58, 237, 0.25); }
+      0%, 100% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.4); }
+      50% { box-shadow: 0 0 80px rgba(124, 58, 237, 0.6); }
     }
 
     .welcome-title {
-      font-size: 2.8rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #a78bfa, #8b5cf6, #7c3aed);
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .welcome-subtitle {
       color: #a78bfa;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 400;
-      margin-bottom: 6px;
     }
 
     .welcome-subtitle span { color: #c4b5fd; font-weight: 600; }
 
     .welcome-desc {
-      color: #8b8b8b;
-      font-size: 0.9rem;
-      margin: 16px 0 32px;
+      color: #888;
+      font-size: 0.85rem;
+      margin: 14px 0 28px;
       line-height: 1.6;
     }
 
@@ -103,18 +105,20 @@
       background: linear-gradient(135deg, #7c3aed, #6d28d9);
       border: none;
       color: white;
-      padding: 16px 56px;
+      padding: 14px 48px;
       border-radius: 60px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
       display: inline-flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       position: relative;
       overflow: hidden;
+      width: 100%;
+      justify-content: center;
     }
 
     .btn-enter::before {
@@ -129,15 +133,11 @@
     }
 
     @keyframes borderGlow {
-      0% { background-position: 0% 50%; }
+      0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
-    .btn-enter:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 0 50px rgba(124, 58, 237, 0.5); }
     .btn-enter:active { transform: scale(0.97); }
-    .btn-enter:hover i { transform: translateX(5px); }
-    .btn-enter i { transition: transform 0.3s ease; }
 
     .welcome-bg-particles {
       position: absolute;
@@ -151,41 +151,36 @@
     .particle {
       position: absolute;
       border-radius: 50%;
-      background: rgba(124, 58, 237, 0.15);
+      background: rgba(124, 58, 237, 0.1);
       animation: floatParticle 15s infinite linear;
     }
 
-    .particle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 5%; animation-duration: 18s; }
-    .particle:nth-child(2) { width: 120px; height: 120px; top: 60%; right: 5%; animation-duration: 22s; animation-delay: 2s; }
-    .particle:nth-child(3) { width: 60px; height: 60px; bottom: 20%; left: 20%; animation-duration: 14s; animation-delay: 4s; }
-    .particle:nth-child(4) { width: 100px; height: 100px; top: 30%; right: 15%; animation-duration: 20s; animation-delay: 1s; }
+    .particle:nth-child(1) { width: 60px; height: 60px; top: 10%; left: 5%; animation-duration: 18s; }
+    .particle:nth-child(2) { width: 100px; height: 100px; top: 60%; right: 5%; animation-duration: 22s; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 40px; height: 40px; bottom: 20%; left: 20%; animation-duration: 14s; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 80px; height: 80px; top: 30%; right: 15%; animation-duration: 20s; animation-delay: 1s; }
     .particle:nth-child(5) { width: 50px; height: 50px; bottom: 10%; right: 30%; animation-duration: 16s; animation-delay: 3s; }
 
     @keyframes floatParticle {
       0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-      25% { transform: translate(30px, -50px) scale(1.2); opacity: 0.6; }
-      50% { transform: translate(-20px, -100px) scale(0.8); opacity: 0.4; }
-      75% { transform: translate(40px, -40px) scale(1.1); opacity: 0.5; }
+      25% { transform: translate(30px, -40px) scale(1.2); opacity: 0.6; }
+      50% { transform: translate(-20px, -80px) scale(0.8); opacity: 0.4; }
+      75% { transform: translate(40px, -30px) scale(1.1); opacity: 0.5; }
       100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
     }
 
-    /* ========== APLIKASI UTAMA (Seperti WhatsApp) ========== */
+    /* ========== APLIKASI UTAMA ========== */
     .app-container {
       width: 100%;
-      max-width: 500px;
-      height: 90vh;
-      max-height: 800px;
-      background: #111;
-      border-radius: 32px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
-      border: 1px solid #2a2a2a;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      height: 100vh;
+      height: 100dvh;
+      background: #0a0a0a;
       display: flex;
       flex-direction: column;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .app-container.visible {
@@ -193,12 +188,13 @@
       transform: scale(1);
     }
 
-    /* ===== LAYAR VIDEO UTAMA (Kamera B / Mitra) ===== */
+    /* ===== LAYAR VIDEO UTAMA ===== */
     .main-video-container {
       flex: 1;
       position: relative;
       background: #0a0a0a;
       overflow: hidden;
+      min-height: 0;
     }
 
     #remoteVideo {
@@ -219,42 +215,36 @@
     }
 
     .remote-placeholder i {
-      font-size: 4rem;
+      font-size: 3.5rem;
       color: #333;
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .remote-placeholder span {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #666;
     }
 
-    /* ===== KAMERA A (Anda) - Picture-in-Picture di Sudut Bawah ===== */
+    /* ===== KAMERA ANDA (Picture-in-Picture) ===== */
     .local-video-container {
       position: absolute;
-      bottom: 100px;
-      right: 16px;
-      width: 120px;
-      height: 160px;
-      border-radius: 16px;
+      bottom: 120px;
+      right: 14px;
+      width: 100px;
+      height: 140px;
+      border-radius: 14px;
       overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
       z-index: 10;
       background: #1a1a1a;
       transition: all 0.3s ease;
-      cursor: pointer;
+      touch-action: none;
     }
 
-    .local-video-container:hover {
-      border-color: rgba(124, 58, 237, 0.6);
-      transform: scale(1.02);
-    }
-
-    .local-video-container.dragging {
-      opacity: 0.8;
-      transform: scale(0.95);
+    .local-video-container:active {
+      border-color: rgba(124, 58, 237, 0.5);
     }
 
     #localVideo {
@@ -272,37 +262,36 @@
       color: #555;
       text-align: center;
       pointer-events: none;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
     }
 
     .local-placeholder i {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #444;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    /* Label di video lokal */
     .local-label {
       position: absolute;
-      bottom: 6px;
-      left: 8px;
+      bottom: 4px;
+      left: 6px;
       background: rgba(0, 0, 0, 0.6);
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 0.55rem;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 0.5rem;
       color: #aaa;
       pointer-events: none;
       backdrop-filter: blur(4px);
     }
 
-    /* ===== HEADER ===== */
+    /* ===== HEADER CALL ===== */
     .call-header {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      padding: 16px 20px;
+      padding: 14px 18px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
       z-index: 20;
       display: flex;
@@ -314,183 +303,139 @@
     .call-header .caller-info {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: white;
       pointer-events: auto;
     }
 
     .call-header .caller-info i {
       color: #a855f7;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .call-header .caller-info span {
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
     .call-header .call-status {
       color: #8bc34a;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 300;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       pointer-events: auto;
+      background: rgba(0,0,0,0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
     }
 
     /* ===== KONTROL BAWAH ===== */
     .call-controls {
       position: absolute;
-      bottom: 30px;
+      bottom: 28px;
       left: 0;
       right: 0;
       display: flex;
       justify-content: center;
-      gap: 18px;
-      padding: 0 20px;
+      gap: 14px;
+      padding: 0 16px;
       z-index: 20;
-      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
       padding-top: 30px;
     }
 
     .ctrl-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 56px;
+      width: 52px;
+      height: 52px;
+      border-radius: 52px;
       border: none;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
       color: white;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .ctrl-btn:active { transform: scale(0.92); }
+    .ctrl-btn:active { transform: scale(0.88); }
 
     .ctrl-btn.active {
-      background: rgba(124, 58, 237, 0.4);
-      border-color: rgba(124, 58, 237, 0.3);
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+      background: rgba(124, 58, 237, 0.35);
+      border-color: rgba(124, 58, 237, 0.25);
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.1);
     }
 
     .ctrl-btn.off {
-      background: rgba(200, 50, 50, 0.3);
-      border-color: rgba(200, 50, 50, 0.2);
+      background: rgba(200, 50, 50, 0.25);
+      border-color: rgba(200, 50, 50, 0.15);
     }
 
     .ctrl-btn.end-call {
       background: #e74c3c;
       border-color: #e74c3c;
-      width: 64px;
-      box-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
+      width: 58px;
+      box-shadow: 0 0 30px rgba(231, 76, 60, 0.25);
     }
 
-    .ctrl-btn.end-call:hover { background: #c0392b; }
+    .ctrl-btn.end-call:active { background: #c0392b; }
 
     .ctrl-btn.speaker-on {
-      background: rgba(124, 58, 237, 0.5);
+      background: rgba(124, 58, 237, 0.4);
       border-color: #7c3aed;
-      box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.15);
     }
 
-    /* ===== PANEL KONEKSI (di bawah) ===== */
-    .connection-panel {
-      background: rgba(20, 20, 20, 0.95);
+    /* ===== PANEL ATAS (ID & KONEKSI) ===== */
+    .top-panel {
+      background: rgba(16, 16, 16, 0.98);
       backdrop-filter: blur(20px);
-      padding: 14px 16px;
-      border-top: 1px solid #2a2a2a;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      padding: 10px 14px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       z-index: 30;
-      position: relative;
+      flex-shrink: 0;
     }
 
-    .id-row {
+    .top-panel .id-section {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .id-row label {
-      color: #888;
-      font-size: 0.7rem;
-      font-weight: 600;
-      min-width: 50px;
-    }
-
-    .id-row input {
-      flex: 1;
-      background: #222;
-      border: 1px solid #333;
-      padding: 8px 14px;
-      border-radius: 30px;
-      color: #eee;
-      font-size: 0.75rem;
-      outline: none;
-      font-family: 'Courier New', monospace;
-      min-width: 80px;
-    }
-
-    .id-row input:focus {
-      border-color: #7c3aed;
-      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
-    }
-
-    .id-row .btn-connect {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border: none;
-      color: white;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 0.7rem;
-      cursor: pointer;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .id-row .btn-connect:hover { transform: scale(1.05); }
-    .id-row .btn-connect:disabled { opacity: 0.4; pointer-events: none; }
-
-    .status-text {
+    .top-panel .id-section .my-id-label {
       color: #666;
       font-size: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .status-text i { font-size: 0.4rem; color: #7c3aed; }
-    .status-text .connected { color: #8bc34a; }
-
-    .my-id-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.65rem;
-      color: #888;
-    }
-
-    .my-id-display .id-text {
+    .top-panel .id-section .my-id-value {
       font-family: 'Courier New', monospace;
       color: #a78bfa;
+      font-size: 0.7rem;
       font-weight: 600;
+      background: rgba(124, 58, 237, 0.1);
+      padding: 2px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(124, 58, 237, 0.1);
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
     }
 
-    .btn-copy-id {
+    .top-panel .id-section .btn-copy-id {
       background: transparent;
       border: 1px solid #333;
       color: #888;
-      padding: 2px 12px;
+      padding: 3px 12px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 0.6rem;
@@ -498,15 +443,94 @@
       display: flex;
       align-items: center;
       gap: 4px;
+      white-space: nowrap;
     }
 
-    .btn-copy-id:hover {
+    .top-panel .id-section .btn-copy-id:active { transform: scale(0.95); }
+    .top-panel .id-section .btn-copy-id:hover { border-color: #7c3aed; color: #a78bfa; }
+    .top-panel .id-section .btn-copy-id.copied { border-color: #8bc34a; color: #8bc34a; }
+
+    .top-panel .connect-section {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .top-panel .connect-section label {
+      color: #666;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 40px;
+    }
+
+    .top-panel .connect-section input {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      padding: 6px 12px;
+      border-radius: 20px;
+      color: #eee;
+      font-size: 0.7rem;
+      outline: none;
+      font-family: 'Courier New', monospace;
+      min-width: 60px;
+      transition: 0.2s;
+    }
+
+    .top-panel .connect-section input:focus {
       border-color: #7c3aed;
-      color: #a78bfa;
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
     }
 
-    .btn-copy-id.copied {
-      border-color: #8bc34a;
+    .top-panel .connect-section input::placeholder {
+      color: #444;
+      font-size: 0.6rem;
+    }
+
+    .top-panel .connect-section .btn-connect {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border: none;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.65rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+    }
+
+    .top-panel .connect-section .btn-connect:active { transform: scale(0.95); }
+    .top-panel .connect-section .btn-connect:disabled { opacity: 0.4; pointer-events: none; }
+
+    .top-panel .status-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .top-panel .status-row .status-text {
+      color: #555;
+      font-size: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .top-panel .status-row .status-text i {
+      font-size: 0.35rem;
+      color: #7c3aed;
+    }
+
+    .top-panel .status-row .status-text .connected {
       color: #8bc34a;
     }
 
@@ -516,13 +540,13 @@
       bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(20, 20, 20, 0.95);
+      background: rgba(20, 20, 20, 0.96);
       backdrop-filter: blur(20px);
       color: #eee;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      border: 1px solid #333;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      border: 1px solid #2a2a2a;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -530,7 +554,8 @@
       z-index: 999;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      max-width: 90%;
     }
 
     .toast-notification.show { opacity: 1; }
@@ -538,55 +563,102 @@
 
     /* ===== RESPONSIF ===== */
     @media (max-width: 480px) {
-      .app-container {
-        max-width: 100%;
-        height: 100vh;
-        max-height: 100vh;
-        border-radius: 0;
-      }
-
+      .app-container { border-radius: 0; }
+      
       .local-video-container {
-        width: 90px;
-        height: 120px;
-        bottom: 90px;
+        width: 80px;
+        height: 110px;
+        bottom: 100px;
         right: 10px;
         border-radius: 12px;
       }
 
       .ctrl-btn {
-        width: 48px;
-        height: 48px;
-        font-size: 1.1rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
       }
 
-      .ctrl-btn.end-call { width: 56px; }
+      .ctrl-btn.end-call { width: 50px; }
 
-      .call-controls { gap: 12px; bottom: 20px; }
+      .call-controls {
+        gap: 10px;
+        bottom: 20px;
+        padding-top: 20px;
+      }
 
-      .welcome-title { font-size: 2rem; }
-      .welcome-subtitle { font-size: 1.1rem; }
-      .welcome-icon { width: 90px; height: 90px; border-radius: 30px; }
-      .welcome-icon i { font-size: 3rem; }
-      .btn-enter { padding: 14px 40px; font-size: 1rem; }
+      .top-panel { padding: 8px 12px 10px; }
 
-      .connection-panel { padding: 10px 12px; }
-      .id-row input { font-size: 0.65rem; padding: 6px 10px; }
+      .top-panel .id-section .my-id-value { font-size: 0.6rem; padding: 1px 10px; }
+      .top-panel .connect-section input { font-size: 0.6rem; padding: 5px 10px; }
+      .top-panel .connect-section .btn-connect { font-size: 0.6rem; padding: 5px 14px; }
+
+      .welcome-title { font-size: 1.8rem; }
+      .welcome-subtitle { font-size: 1rem; }
+      .welcome-icon { width: 80px; height: 80px; border-radius: 28px; }
+      .welcome-icon i { font-size: 2.6rem; }
+      .btn-enter { padding: 12px 36px; font-size: 1rem; }
+
+      .call-header .caller-info span { font-size: 0.75rem; }
+      .call-header .call-status { font-size: 0.5rem; padding: 2px 10px; }
+
+      .remote-placeholder i { font-size: 2.8rem; }
+      .remote-placeholder span { font-size: 0.75rem; }
+
+      .toast-notification {
+        bottom: 80px;
+        font-size: 0.65rem;
+        padding: 8px 18px;
+      }
     }
 
     @media (max-width: 380px) {
       .local-video-container {
-        width: 70px;
-        height: 95px;
-        bottom: 80px;
+        width: 65px;
+        height: 90px;
+        bottom: 85px;
         right: 8px;
+        border-radius: 10px;
       }
+
       .ctrl-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 1rem;
+        width: 38px;
+        height: 38px;
+        font-size: 0.85rem;
       }
-      .ctrl-btn.end-call { width: 48px; }
-      .call-controls { gap: 8px; }
+
+      .ctrl-btn.end-call { width: 44px; }
+      .call-controls { gap: 8px; bottom: 16px; }
+
+      .top-panel .id-section .my-id-value { font-size: 0.5rem; }
+      .top-panel .connect-section input { font-size: 0.5rem; padding: 4px 8px; }
+      .top-panel .connect-section .btn-connect { font-size: 0.5rem; padding: 4px 10px; }
+    }
+
+    @media (min-width: 600px) {
+      .app-container {
+        max-width: 420px;
+        max-height: 800px;
+        border-radius: 32px;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      }
+
+      .local-video-container {
+        width: 120px;
+        height: 160px;
+        bottom: 120px;
+        right: 16px;
+      }
+    }
+
+    /* ===== STATUS BAR SAFE AREA ===== */
+    @supports (padding: env(safe-area-inset-top)) {
+      .top-panel {
+        padding-top: calc(10px + env(safe-area-inset-top));
+      }
+      .call-controls {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      }
     }
   </style>
 </head>
@@ -611,7 +683,26 @@
 
   <!-- ========== APLIKASI UTAMA ========== -->
   <div class="app-container" id="appContainer">
-    <!-- Main Video (Kamera B / Mitra) -->
+    <!-- TOP PANEL: ID & KONEKSI -->
+    <div class="top-panel">
+      <div class="id-section">
+        <span class="my-id-label"><i class="fas fa-id-card"></i> ID</span>
+        <span class="my-id-value" id="myIdDisplay">memuat...</span>
+        <button class="btn-copy-id" id="copyIdBtn"><i class="fas fa-copy"></i> Salin</button>
+      </div>
+      <div class="connect-section">
+        <label><i class="fas fa-link"></i></label>
+        <input type="text" id="remoteIdInput" placeholder="ID mitra" />
+        <button class="btn-connect" id="connectBtn"><i class="fas fa-phone"></i> Hubung</button>
+      </div>
+      <div class="status-row">
+        <div class="status-text" id="connectionStatus">
+          <i class="fas fa-circle"></i> <span>Belum terhubung</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN VIDEO -->
     <div class="main-video-container" id="mainVideoContainer">
       <video id="remoteVideo" autoplay playsinline></video>
       <div class="remote-placeholder" id="remotePlaceholder">
@@ -625,10 +716,10 @@
           <i class="fas fa-phone-alt"></i>
           <span>Panggilan Video</span>
         </div>
-        <div class="call-status" id="callStatus">⏳ Menghubungi...</div>
+        <div class="call-status" id="callStatus">📱 Siap</div>
       </div>
 
-      <!-- Local Video (Kamera A / Anda) - Picture-in-Picture -->
+      <!-- Local Video (Picture-in-Picture) -->
       <div class="local-video-container" id="localVideoContainer">
         <video id="localVideo" autoplay muted playsinline></video>
         <div class="local-placeholder" id="localPlaceholder">
@@ -640,28 +731,10 @@
 
       <!-- Controls -->
       <div class="call-controls">
-        <button class="ctrl-btn active" id="micBtn" title="Mute/Unmute"><i class="fas fa-microphone"></i></button>
-        <button class="ctrl-btn" id="speakerBtn" title="Speaker/Earpiece"><i class="fas fa-volume-up"></i></button>
-        <button class="ctrl-btn active" id="videoBtn" title="Matikan/Nyalakan kamera"><i class="fas fa-video"></i></button>
-        <button class="ctrl-btn end-call" id="endCallBtn" title="Akhiri panggilan"><i class="fas fa-phone-slash"></i></button>
-      </div>
-    </div>
-
-    <!-- Connection Panel -->
-    <div class="connection-panel">
-      <div class="my-id-display">
-        <i class="fas fa-id-card"></i>
-        <span>ID Anda:</span>
-        <span class="id-text" id="myIdDisplay">memuat...</span>
-        <button class="btn-copy-id" id="copyIdBtn"><i class="fas fa-copy"></i> Salin</button>
-      </div>
-      <div class="id-row">
-        <label><i class="fas fa-link"></i></label>
-        <input type="text" id="remoteIdInput" placeholder="Masukkan ID mitra" />
-        <button class="btn-connect" id="connectBtn"><i class="fas fa-phone"></i> Hubung</button>
-      </div>
-      <div class="status-text" id="connectionStatus">
-        <i class="fas fa-circle"></i> <span>Belum terhubung</span>
+        <button class="ctrl-btn active" id="micBtn" title="Mute"><i class="fas fa-microphone"></i></button>
+        <button class="ctrl-btn" id="speakerBtn" title="Speaker"><i class="fas fa-volume-up"></i></button>
+        <button class="ctrl-btn active" id="videoBtn" title="Kamera"><i class="fas fa-video"></i></button>
+        <button class="ctrl-btn end-call" id="endCallBtn" title="Akhiri"><i class="fas fa-phone-slash"></i></button>
       </div>
     </div>
   </div>
@@ -776,7 +849,7 @@
         appContainer.classList.add('visible');
         setTimeout(() => {
           if (!localStream) initCall();
-        }, 400);
+        }, 500);
       });
 
       // ========== KONFIGURASI STUN ==========
@@ -1119,76 +1192,68 @@
         setTimeout(() => initCall(), 500);
       });
 
-      // ========== DRAG LOCAL VIDEO (seperti WhatsApp) ==========
+      // ========== DRAG LOCAL VIDEO (Touch & Mouse) ==========
       let isDragging = false;
-      let dragStartX, dragStartY;
-      let containerStartX, containerStartY;
+      let dragOffsetX, dragOffsetY;
 
-      localVideoContainer.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.local-label')) return;
-        isDragging = true;
+      function startDrag(clientX, clientY) {
         const rect = localVideoContainer.getBoundingClientRect();
         const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-        containerStartX = rect.left - containerRect.left;
-        containerStartY = rect.top - containerRect.top;
+        dragOffsetX = clientX - rect.left;
+        dragOffsetY = clientY - rect.top;
+        isDragging = true;
         localVideoContainer.style.cursor = 'grabbing';
+        localVideoContainer.style.transition = 'none';
         localVideoContainer.classList.add('dragging');
-        e.preventDefault();
-      });
+      }
 
-      document.addEventListener('mousemove', (e) => {
+      function moveDrag(clientX, clientY) {
         if (!isDragging) return;
         const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
-        let x = e.clientX - containerRect.left - (localVideoContainer.offsetWidth / 2);
-        let y = e.clientY - containerRect.top - (localVideoContainer.offsetHeight / 2);
-        x = Math.max(10, Math.min(containerRect.width - localVideoContainer.offsetWidth - 10, x));
-        y = Math.max(10, Math.min(containerRect.height - localVideoContainer.offsetHeight - 60, y));
+        let x = clientX - containerRect.left - dragOffsetX;
+        let y = clientY - containerRect.top - dragOffsetY;
+        const maxX = containerRect.width - localVideoContainer.offsetWidth - 10;
+        const maxY = containerRect.height - localVideoContainer.offsetHeight - 60;
+        x = Math.max(10, Math.min(maxX, x));
+        y = Math.max(10, Math.min(maxY, y));
         localVideoContainer.style.left = x + 'px';
         localVideoContainer.style.right = 'auto';
         localVideoContainer.style.bottom = 'auto';
         localVideoContainer.style.top = y + 'px';
-      });
+      }
 
-      document.addEventListener('mouseup', () => {
+      function endDrag() {
         if (isDragging) {
           isDragging = false;
           localVideoContainer.style.cursor = 'pointer';
+          localVideoContainer.style.transition = '';
           localVideoContainer.classList.remove('dragging');
         }
+      }
+
+      // Mouse events
+      localVideoContainer.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.local-label')) return;
+        startDrag(e.clientX, e.clientY);
+        e.preventDefault();
       });
 
-      // Touch support
+      document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+      document.addEventListener('mouseup', endDrag);
+
+      // Touch events
       localVideoContainer.addEventListener('touchstart', (e) => {
         const touch = e.touches[0];
-        const rect = localVideoContainer.getBoundingClientRect();
-        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
-        dragStartX = touch.clientX;
-        dragStartY = touch.clientY;
-        containerStartX = rect.left - containerRect.left;
-        containerStartY = rect.top - containerRect.top;
-        localVideoContainer.classList.add('dragging');
+        startDrag(touch.clientX, touch.clientY);
         e.preventDefault();
       }, { passive: false });
 
       document.addEventListener('touchmove', (e) => {
-        if (!localVideoContainer.classList.contains('dragging')) return;
         const touch = e.touches[0];
-        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
-        let x = touch.clientX - containerRect.left - (localVideoContainer.offsetWidth / 2);
-        let y = touch.clientY - containerRect.top - (localVideoContainer.offsetHeight / 2);
-        x = Math.max(10, Math.min(containerRect.width - localVideoContainer.offsetWidth - 10, x));
-        y = Math.max(10, Math.min(containerRect.height - localVideoContainer.offsetHeight - 60, y));
-        localVideoContainer.style.left = x + 'px';
-        localVideoContainer.style.right = 'auto';
-        localVideoContainer.style.bottom = 'auto';
-        localVideoContainer.style.top = y + 'px';
+        moveDrag(touch.clientX, touch.clientY);
       }, { passive: false });
 
-      document.addEventListener('touchend', () => {
-        localVideoContainer.classList.remove('dragging');
-      });
+      document.addEventListener('touchend', endDrag);
 
       // ========== PANDUAN ==========
       console.log('═══════════════════════════════════');
