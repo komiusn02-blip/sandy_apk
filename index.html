@@ -534,6 +534,193 @@
       color: #8bc34a;
     }
 
+    /* ===== MODAL SDP (COPY-PASTE) ===== */
+    .sdp-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .sdp-modal-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .sdp-modal {
+      background: #1a1a1a;
+      border-radius: 24px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    .sdp-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #2a2a2a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .sdp-modal-header h3 {
+      color: #eee;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sdp-modal-header h3 i {
+      color: #a855f7;
+    }
+
+    .sdp-modal-header .btn-close-modal {
+      background: transparent;
+      border: none;
+      color: #666;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+
+    .sdp-modal-header .btn-close-modal:hover {
+      background: #2a2a2a;
+      color: #eee;
+    }
+
+    .sdp-modal-body {
+      padding: 16px 20px 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .sdp-modal-body .info-text {
+      color: #888;
+      font-size: 0.75rem;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .sdp-modal-body .info-text strong {
+      color: #a78bfa;
+    }
+
+    .sdp-modal-body .sdp-textarea {
+      width: 100%;
+      min-height: 200px;
+      background: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      color: #8bc34a;
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.4;
+      tab-size: 2;
+    }
+
+    .sdp-modal-body .sdp-textarea:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+    }
+
+    .sdp-modal-body .sdp-textarea::selection {
+      background: rgba(124, 58, 237, 0.3);
+    }
+
+    .sdp-modal-footer {
+      padding: 12px 20px 16px;
+      border-top: 1px solid #2a2a2a;
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .sdp-modal-footer .btn-sdp-copy {
+      flex: 1;
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 100px;
+    }
+
+    .sdp-modal-footer .btn-sdp-copy:active { transform: scale(0.97); }
+
+    .sdp-modal-footer .btn-sdp-paste {
+      flex: 1;
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      color: #eee;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 100px;
+    }
+
+    .sdp-modal-footer .btn-sdp-paste:active { transform: scale(0.97); }
+    .sdp-modal-footer .btn-sdp-paste:hover { background: #333; }
+
+    .sdp-modal-footer .btn-sdp-send {
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, #2e7d32, #388e3c);
+      border: none;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sdp-modal-footer .btn-sdp-send:active { transform: scale(0.97); }
+
     /* ===== TOAST ===== */
     .toast-notification {
       position: fixed;
@@ -610,6 +797,28 @@
         font-size: 0.65rem;
         padding: 8px 18px;
       }
+
+      .sdp-modal {
+        max-height: 95vh;
+        border-radius: 16px;
+      }
+
+      .sdp-modal-body .sdp-textarea {
+        min-height: 150px;
+        font-size: 0.5rem;
+      }
+
+      .sdp-modal-footer {
+        flex-direction: column;
+      }
+
+      .sdp-modal-footer .btn-sdp-copy,
+      .sdp-modal-footer .btn-sdp-paste,
+      .sdp-modal-footer .btn-sdp-send {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.7rem;
+      }
     }
 
     @media (max-width: 380px) {
@@ -651,7 +860,6 @@
       }
     }
 
-    /* ===== STATUS BAR SAFE AREA ===== */
     @supports (padding: env(safe-area-inset-top)) {
       .top-panel {
         padding-top: calc(10px + env(safe-area-inset-top));
@@ -739,6 +947,28 @@
     </div>
   </div>
 
+  <!-- ========== MODAL SDP ========== -->
+  <div class="sdp-modal-overlay" id="sdpModal">
+    <div class="sdp-modal">
+      <div class="sdp-modal-header">
+        <h3><i class="fas fa-code"></i> <span id="sdpModalTitle">Kirim Offer ke Mitra</span></h3>
+        <button class="btn-close-modal" id="sdpModalClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="sdp-modal-body">
+        <div class="info-text" id="sdpModalInfo">
+          Salin teks di bawah dan kirim ke mitra melalui chat/email. 
+          Setelah mitra membalas, tempelkan jawabannya di kotak di bawah.
+        </div>
+        <textarea class="sdp-textarea" id="sdpTextarea" spellcheck="false"></textarea>
+      </div>
+      <div class="sdp-modal-footer">
+        <button class="btn-sdp-copy" id="sdpCopyBtn"><i class="fas fa-copy"></i> Salin SDP</button>
+        <button class="btn-sdp-paste" id="sdpPasteBtn"><i class="fas fa-paste"></i> Tempel Jawaban</button>
+        <button class="btn-sdp-send" id="sdpSendBtn"><i class="fas fa-paper-plane"></i> Kirim</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast -->
   <div class="toast-notification" id="toastNotification">
     <i class="fas fa-check-circle"></i>
@@ -772,6 +1002,16 @@
       const toastMessage = document.getElementById('toastMessage');
       const localVideoContainer = document.getElementById('localVideoContainer');
 
+      // Modal SDP
+      const sdpModal = document.getElementById('sdpModal');
+      const sdpModalTitle = document.getElementById('sdpModalTitle');
+      const sdpModalInfo = document.getElementById('sdpModalInfo');
+      const sdpTextarea = document.getElementById('sdpTextarea');
+      const sdpCopyBtn = document.getElementById('sdpCopyBtn');
+      const sdpPasteBtn = document.getElementById('sdpPasteBtn');
+      const sdpSendBtn = document.getElementById('sdpSendBtn');
+      const sdpModalClose = document.getElementById('sdpModalClose');
+
       // ========== STATE ==========
       let localStream = null;
       let remoteStream = null;
@@ -782,6 +1022,8 @@
       let isSpeakerOn = false;
       let toastTimeout = null;
       let isInCall = false;
+      let pendingOffer = null;
+      let isOfferMode = true;
 
       // ========== NAMA USER ==========
       const userName = 'Sandy';
@@ -1015,6 +1257,123 @@
         }
       }
 
+      // ========== MODAL SDP ==========
+      function showSdpModal(title, info, sdpText, isOffer) {
+        isOfferMode = isOffer;
+        sdpModalTitle.textContent = title;
+        sdpModalInfo.textContent = info;
+        sdpTextarea.value = sdpText;
+        sdpModal.classList.add('show');
+        if (isOffer) {
+          sdpSendBtn.textContent = 'Kirim Offer';
+          sdpSendBtn.style.background = 'linear-gradient(135deg, #7c3aed, #6d28d9)';
+        } else {
+          sdpSendBtn.textContent = 'Kirim Jawaban';
+          sdpSendBtn.style.background = 'linear-gradient(135deg, #2e7d32, #388e3c)';
+        }
+      }
+
+      function closeSdpModal() {
+        sdpModal.classList.remove('show');
+        sdpTextarea.value = '';
+      }
+
+      sdpModalClose.addEventListener('click', closeSdpModal);
+      sdpModal.addEventListener('click', (e) => {
+        if (e.target === sdpModal) closeSdpModal();
+      });
+
+      // ========== SALIN SDP ==========
+      sdpCopyBtn.addEventListener('click', () => {
+        const text = sdpTextarea.value;
+        if (!text) {
+          showToast('❌ Tidak ada teks untuk disalin', false);
+          return;
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('✅ SDP disalin! Kirimkan ke mitra');
+          }).catch(() => fallbackCopySdp(text));
+        } else {
+          fallbackCopySdp(text);
+        }
+      });
+
+      function fallbackCopySdp(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast('✅ SDP disalin! Kirimkan ke mitra');
+        } catch (err) {
+          showToast('❌ Gagal menyalin SDP', false);
+        }
+        document.body.removeChild(textarea);
+      }
+
+      // ========== TEMPEL SDP ==========
+      sdpPasteBtn.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (text) {
+            sdpTextarea.value = text;
+            showToast('✅ Teks ditempel dari clipboard');
+          }
+        } catch (err) {
+          showToast('❌ Gagal membaca clipboard. Tempel manual.', false);
+        }
+      });
+
+      // ========== KIRIM SDP ==========
+      sdpSendBtn.addEventListener('click', async () => {
+        const sdpText = sdpTextarea.value.trim();
+        if (!sdpText) {
+          showToast('❌ Tidak ada SDP untuk dikirim', false);
+          return;
+        }
+
+        try {
+          const sdpData = JSON.parse(sdpText);
+          
+          if (isOfferMode) {
+            // Kita sedang mengirim offer, dan menerima answer
+            const ok = await handleAnswer(sdpData);
+            if (ok) {
+              setStatus('✅ Panggilan aktif', true);
+              setCallStatus('📞 Sedang bicara');
+              isConnected = true;
+              isInCall = true;
+              remotePlaceholder.style.display = 'none';
+              showToast('✅ Panggilan berhasil!');
+              closeSdpModal();
+            } else {
+              showToast('❌ Gagal menyambungkan', false);
+            }
+          } else {
+            // Kita sedang mengirim answer
+            const answerSdp = JSON.stringify(sdpData);
+            alert(
+              `📥 KIRIM ANSWER KE MITRA\n\n` +
+              `Salin teks di bawah dan kirim ke mitra.\n\n` +
+              `--- ANSWER ---\n${answerSdp}\n--- END ANSWER ---\n\n` +
+              `Setelah mitra menerima, koneksi akan terbentuk.`
+            );
+            setStatus('⏳ Menunggu koneksi...', false);
+            setCallStatus('⏳ Menunggu koneksi...');
+            showToast('⏳ Menunggu koneksi...');
+            closeSdpModal();
+          }
+        } catch (e) {
+          showToast('❌ Format SDP tidak valid. Pastikan JSON yang benar.', false);
+          console.error('Error parsing SDP:', e);
+        }
+      });
+
       // ========== TOMBOL HUBUNG ==========
       connectBtn.addEventListener('click', async () => {
         if (isConnected || isInCall) {
@@ -1032,39 +1391,13 @@
         const offerSdp = JSON.stringify(offer);
         const targetId = remoteIdInput.value.trim() || 'mitra';
 
-        const answerSdpString = prompt(
-          `📤 KIRIM OFFER KE MITRA\n\n` +
-          `ID Mitra: ${targetId}\n` +
-          `ID Anda: ${myId}\n\n` +
-          `Salin teks di bawah dan kirim ke mitra.\n` +
-          `Lalu tempelkan jawaban (answer) dari mitra.\n\n` +
-          `--- OFFER ---\n${offerSdp}\n--- END OFFER ---`
+        // Tampilkan modal SDP dengan offer
+        showSdpModal(
+          `📤 Kirim Offer ke ${targetId}`,
+          `Salin SDP di bawah dan kirim ke mitra melalui chat/email.\nSetelah mitra membalas, tempelkan jawabannya di kotak di bawah lalu klik "Kirim".`,
+          offerSdp,
+          true
         );
-
-        if (!answerSdpString) {
-          setStatus('⏹️ Dibatalkan', false);
-          return;
-        }
-
-        try {
-          const answerSdp = JSON.parse(answerSdpString);
-          const ok = await handleAnswer(answerSdp);
-          if (ok) {
-            setStatus('✅ Panggilan aktif', true);
-            setCallStatus('📞 Sedang bicara');
-            isConnected = true;
-            isInCall = true;
-            remotePlaceholder.style.display = 'none';
-            showToast('✅ Panggilan berhasil!');
-          } else {
-            setStatus('❌ Gagal menyambungkan', false);
-            showToast('❌ Gagal menyambungkan', false);
-          }
-        } catch (e) {
-          alert('❌ Format answer tidak valid. Pastikan menempelkan JSON SDP yang benar.');
-          setStatus('❌ Error: format SDP', false);
-          showToast('❌ Format SDP tidak valid', false);
-        }
       });
 
       // ========== FUNGSI MENERIMA PANGGILAN ==========
@@ -1090,15 +1423,14 @@
         if (!answer) return;
 
         const answerSdp = JSON.stringify(answer);
-        alert(
-          `📥 KIRIM ANSWER KE MITRA\n\n` +
-          `Salin teks di bawah dan kirim ke mitra.\n\n` +
-          `--- ANSWER ---\n${answerSdp}\n--- END ANSWER ---\n\n` +
-          `Setelah mitra menerima, koneksi akan terbentuk.`
+        
+        // Tampilkan modal SDP dengan answer
+        showSdpModal(
+          '📥 Kirim Jawaban ke Mitra',
+          'Salin SDP jawaban di bawah dan kirim ke mitra.\nSetelah mitra menerima, koneksi akan terbentuk.',
+          answerSdp,
+          false
         );
-        setStatus('⏳ Menunggu koneksi...', false);
-        setCallStatus('⏳ Menunggu koneksi...');
-        showToast('⏳ Menunggu koneksi...');
       };
 
       // ========== KONTROL: MIC ==========
@@ -1192,13 +1524,12 @@
         setTimeout(() => initCall(), 500);
       });
 
-      // ========== DRAG LOCAL VIDEO (Touch & Mouse) ==========
+      // ========== DRAG LOCAL VIDEO ==========
       let isDragging = false;
       let dragOffsetX, dragOffsetY;
 
       function startDrag(clientX, clientY) {
         const rect = localVideoContainer.getBoundingClientRect();
-        const containerRect = localVideoContainer.parentElement.getBoundingClientRect();
         dragOffsetX = clientX - rect.left;
         dragOffsetY = clientY - rect.top;
         isDragging = true;
@@ -1231,7 +1562,6 @@
         }
       }
 
-      // Mouse events
       localVideoContainer.addEventListener('mousedown', (e) => {
         if (e.target.closest('.local-label')) return;
         startDrag(e.clientX, e.clientY);
@@ -1241,7 +1571,6 @@
       document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
       document.addEventListener('mouseup', endDrag);
 
-      // Touch events
       localVideoContainer.addEventListener('touchstart', (e) => {
         const touch = e.touches[0];
         startDrag(touch.clientX, touch.clientY);
